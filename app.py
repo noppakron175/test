@@ -4,13 +4,9 @@ import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-import json
-import os
-
 # Initialize Firebase
 if not firebase_admin._apps:
-    cred_data = json.loads(os.environ['FIREBASE_CREDENTIALS'])
-    cred = credentials.Certificate(cred_data)
+    cred = credentials.Certificate("password-panda-firebase-adminsdk-pikqp-d441acb80f.json")  # Path to your Firebase credentials
     firebase_admin.initialize_app(cred)
 
 # Initialize Firestore
@@ -80,17 +76,18 @@ def generate_custom_password(length, required_chars):
 def save_to_firebase(username, password):
     print(f"Attempting to save user: {username}, password: {password}")
     try:
+        # Add user data to the 'users' collection
         doc_ref_tuple = db.collection('users').add({
             'username': username,
             'password': password
         })
+        # Extract document ID from the returned tuple
         doc_ref = doc_ref_tuple[1] if isinstance(doc_ref_tuple, tuple) else doc_ref_tuple
         print(f"User saved with ID: {doc_ref.id if hasattr(doc_ref, 'id') else 'unknown'}")
         return doc_ref.id if hasattr(doc_ref, 'id') else None
     except Exception as e:
-        print(f"Failed to save user: {e}")  # This line prints the error
+        print(f"Failed to save user: {e}")
         return None
-
 
 
 def main():
