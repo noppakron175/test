@@ -3,18 +3,15 @@ import string
 import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, firestore
-import json
-import os
-
 
 # Initialize Firebase
 if not firebase_admin._apps:
-    cred_data = json.loads(os.environ['FIREBASE_CREDENTIALS'])
-    cred = credentials.Certificate(cred_data)
+    cred = credentials.Certificate("password-panda-firebase-adminsdk-pikqp-d441acb80f.json")
     firebase_admin.initialize_app(cred)
 
 # Initialize Firestore
 db = firestore.client()
+
 
 def generate_random_password(length):
     lower_case_letters = string.ascii_lowercase
