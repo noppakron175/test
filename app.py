@@ -80,18 +80,17 @@ def generate_custom_password(length, required_chars):
 def save_to_firebase(username, password):
     print(f"Attempting to save user: {username}, password: {password}")
     try:
-        # Add user data to the 'users' collection
         doc_ref_tuple = db.collection('users').add({
             'username': username,
             'password': password
         })
-        # Extract document ID from the returned tuple
         doc_ref = doc_ref_tuple[1] if isinstance(doc_ref_tuple, tuple) else doc_ref_tuple
         print(f"User saved with ID: {doc_ref.id if hasattr(doc_ref, 'id') else 'unknown'}")
         return doc_ref.id if hasattr(doc_ref, 'id') else None
     except Exception as e:
-        print(f"Failed to save user: {e}")  # Print the error to debug
+        print(f"Failed to save user: {e}")  # This line prints the error
         return None
+
 
 
 def main():
