@@ -6,7 +6,7 @@ from firebase_admin import credentials, firestore
 
 # Initialize Firebase
 if not firebase_admin._apps:
-    cred = credentials.Certificate("password-panda-firebase-adminsdk-pikqp-d441acb80f.json")
+    cred = credentials.Certificate("key.json")
     firebase_admin.initialize_app(cred)
 
 # Initialize Firestore
