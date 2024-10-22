@@ -90,7 +90,7 @@ def save_to_firebase(username, password):
         print(f"User saved with ID: {doc_ref.id if hasattr(doc_ref, 'id') else 'unknown'}")
         return doc_ref.id if hasattr(doc_ref, 'id') else None
     except Exception as e:
-        print(f"Failed to save user: {e}")
+        print(f"Failed to save user: {e}")  # Print the error to debug
         return None
 
 
