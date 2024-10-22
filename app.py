@@ -4,9 +4,13 @@ import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, firestore
 
+import json
+import os
+
 # Initialize Firebase
 if not firebase_admin._apps:
-    cred = credentials.Certificate("password-panda-firebase-adminsdk-pikqp-d441acb80f.json")  # Path to your Firebase credentials
+    cred_data = json.loads(os.environ['FIREBASE_CREDENTIALS'])
+    cred = credentials.Certificate(cred_data)
     firebase_admin.initialize_app(cred)
 
 # Initialize Firestore
